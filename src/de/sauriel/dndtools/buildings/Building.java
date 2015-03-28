@@ -2,7 +2,7 @@ package de.sauriel.dndtools.buildings;
 
 public abstract class Building {
 	
-	private String type;
+	protected String type;
 
 	public Building() {
 		this.type = "Building";
@@ -18,6 +18,6 @@ public abstract class Building {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName();
+		return type + ": " + this.getClass().getSimpleName();
 	}
 }

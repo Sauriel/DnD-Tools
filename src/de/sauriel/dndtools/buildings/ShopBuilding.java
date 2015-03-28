@@ -2,8 +2,12 @@ package de.sauriel.dndtools.buildings;
 
 public class ShopBuilding extends Building {
 
-	public ShopBuilding() {
-		// TODO Auto-generated constructor stub
+	public ShopBuilding(String type) {
+		super.type = type;
 	}
 
+	@Override
+	public String toString() {
+		return "Shop Building: " + type;
+	}
 }
