@@ -2,12 +2,12 @@ package de.sauriel.dndtools.settlements;
 
 public class Settlement {
 	
-	String name;
-	String raceRelations;
-	String rulersStatus;
-	String notableTraits;
-	String knownFor;
-	String currentCalamity;
+	private String name;
+	private String raceRelations;
+	private String rulersStatus;
+	private String notableTraits;
+	private String knownFor;
+	private String currentCalamity;
 	
 	public Settlement(String name) {
 		this.name = name;
