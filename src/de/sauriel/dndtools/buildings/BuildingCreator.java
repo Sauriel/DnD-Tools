@@ -38,7 +38,7 @@ public class BuildingCreator {
 		residenceSubtypes.put(1, 2, "Abandoned squat");
 		residenceSubtypes.put(3, 8, "Middle-class home");
 		residenceSubtypes.put(9, 10, "Upper-class home");
-		residenceSubtypes.put(11, 15, "Crowdes tenement");
+		residenceSubtypes.put(11, 15, "Crowded tenement");
 		residenceSubtypes.put(16, 17, "Orphanage");
 		residenceSubtypes.put(18, "Hidden slavers' den");
 		residenceSubtypes.put(19, "Front for a secret cult");

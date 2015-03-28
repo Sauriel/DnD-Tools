@@ -11,8 +11,8 @@ import de.sauriel.dndtools.settlements.SettlementCreator;
 public class Menu {
 
 	private Scanner scanner = new Scanner(System.in);
-	private SettlementCreator settlementCreator = new SettlementCreator();
 	private BuildingCreator buildingCreator = new BuildingCreator();
+	private SettlementCreator settlementCreator = new SettlementCreator(buildingCreator);
 
 	public void showMenu() {
 		while (true) {
@@ -57,7 +57,15 @@ public class Menu {
 	private void createSettlement() {
 		System.out.print("Please enter a name for the Settlement: ");
 		String settlementName = scanner.next();
-		Settlement town = settlementCreator.create(settlementName);
+		System.out.print("How many specific buildings would you like to create for the Settlement? ");
+		int numberOfBuildings = 0;
+		try {
+			numberOfBuildings = scanner.nextInt();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Settlement town = settlementCreator.create(settlementName, numberOfBuildings);
 		blankLine();
 		System.out.println(town);
 	}

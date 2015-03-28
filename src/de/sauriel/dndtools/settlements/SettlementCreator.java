@@ -1,9 +1,12 @@
 package de.sauriel.dndtools.settlements;
 
+import de.sauriel.dndtools.buildings.BuildingCreator;
 import de.sauriel.dndtools.tools.Dice;
 import de.sauriel.dndtools.tools.RangedTreeMap;
 
 public class SettlementCreator {
+	
+	BuildingCreator buildingCreator;
 	
 	private RangedTreeMap<String> raceRelations;
 	private RangedTreeMap<String> rulersStatus;
@@ -11,7 +14,9 @@ public class SettlementCreator {
 	private RangedTreeMap<String> knownFor;
 	private RangedTreeMap<String> currentCalamity;
 	
-	public SettlementCreator() {
+	public SettlementCreator(BuildingCreator buildingCreator) {
+		this.buildingCreator = buildingCreator;
+		
 		// Fill Race Relations Table
 		raceRelations = new RangedTreeMap<>();
 		raceRelations.put(1, 10, "Harmony");
@@ -105,7 +110,7 @@ public class SettlementCreator {
 		currentCalamity.put(20, "Religious sects struggle for power");
 	}
 	
-	public Settlement create(String name) {
+	public Settlement create(String name, int numberOfBuildings) {
 		Settlement settlement = new Settlement(name);
 		
 		settlement.setRaceRelations(raceRelations.get(Dice.roll(20)));
@@ -113,6 +118,10 @@ public class SettlementCreator {
 		settlement.setNotableTraits(notableTraits.get(Dice.roll(20)));
 		settlement.setKnownFor(knownFor.get(Dice.roll(20)));
 		settlement.setCurrentCalamity(currentCalamity.get(Dice.roll(20)));
+		
+		for (int i = 0; i < numberOfBuildings; i++) {
+			settlement.addBuilding(buildingCreator.create());
+		}
 		
 		return settlement;
 	}

@@ -1,5 +1,9 @@
 package de.sauriel.dndtools.settlements;
 
+import java.util.ArrayList;
+
+import de.sauriel.dndtools.buildings.Building;
+
 public class Settlement {
 	
 	private String name;
@@ -8,6 +12,8 @@ public class Settlement {
 	private String notableTraits;
 	private String knownFor;
 	private String currentCalamity;
+	
+	private ArrayList<Building> buildings = new ArrayList<>();
 	
 	public Settlement(String name) {
 		this.name = name;
@@ -33,14 +39,31 @@ public class Settlement {
 		this.currentCalamity = currentCalamity;
 	}
 
+	public ArrayList<Building> getBuildings() {
+		return buildings;
+	}
+	
+	public void addBuilding(Building building) {
+		buildings.add(building);
+	}
+
+	public void setBuildings(ArrayList<Building> buildings) {
+		this.buildings = buildings;
+	}
+
 	@Override
 	public String toString() {
-		return "Name: " + name + "\n" + 
+		String returnValue = "Name: " + name + "\n" + 
 				"Race Relations: " + raceRelations +  "\n" + 
 				"Ruler's Status: " + rulersStatus +  "\n" + 
 				"Notable Trits: " + notableTraits +  "\n" + 
 				"Known For Its ...: " + knownFor +  "\n" + 
-				"Current Calamity: " + currentCalamity;
+				"Current Calamity: " + currentCalamity +  "\n" + 
+				"Buildings:\n";
+		for (Building building : buildings) {
+			returnValue += "\t" + building + "\n";
+		}
+		return returnValue;
 	}
 
 }
