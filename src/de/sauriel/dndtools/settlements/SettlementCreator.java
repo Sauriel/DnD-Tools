@@ -112,7 +112,6 @@ public class SettlementCreator {
 
 	public Settlement create(String name, int numberOfBuildings) {
 		Settlement settlement = new Settlement(name);
-
 		settlement.setRaceRelations(raceRelations.get(Dice.D20.roll().getResult()));
 		settlement.setRulersStatus(rulersStatus.get(Dice.D20.roll().getResult()));
 		settlement.setNotableTraits(notableTraits.get(Dice.D20.roll().getResult()));
