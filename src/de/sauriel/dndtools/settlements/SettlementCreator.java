@@ -1,22 +1,22 @@
 package de.sauriel.dndtools.settlements;
 
 import de.sauriel.dndtools.buildings.BuildingCreator;
-import de.sauriel.dndtools.tools.Dice;
 import de.sauriel.dndtools.tools.RangedTreeMap;
+import de.sauriel.dndtools.tools.dice.Dice;
 
 public class SettlementCreator {
-	
+
 	BuildingCreator buildingCreator;
-	
+
 	private RangedTreeMap<String> raceRelations;
 	private RangedTreeMap<String> rulersStatus;
 	private RangedTreeMap<String> notableTraits;
 	private RangedTreeMap<String> knownFor;
 	private RangedTreeMap<String> currentCalamity;
-	
+
 	public SettlementCreator(BuildingCreator buildingCreator) {
 		this.buildingCreator = buildingCreator;
-		
+
 		// Fill Race Relations Table
 		raceRelations = new RangedTreeMap<>();
 		raceRelations.put(1, 10, "Harmony");
@@ -26,7 +26,7 @@ public class SettlementCreator {
 		raceRelations.put(18, "Racial minority are refugees");
 		raceRelations.put(19, "Racial majority oppresses minority");
 		raceRelations.put(20, "Racial minority oppresses mojority");
-		
+
 		// Fill Ruler's Status Table
 		rulersStatus = new RangedTreeMap<>();
 		rulersStatus.put(1, 5, "Respected, fair, and just");
@@ -41,7 +41,7 @@ public class SettlementCreator {
 		rulersStatus.put(16, "On deathbed, claimants compete for power");
 		rulersStatus.put(17, 18, "Iron-willed but respected");
 		rulersStatus.put(19, 20, "Religous leader");
-		
+
 		// FIll Notable Traits Table
 		notableTraits = new RangedTreeMap<>();
 		notableTraits.put(1, "Canals in place of streets");
@@ -64,7 +64,7 @@ public class SettlementCreator {
 		notableTraits.put(18, "Notable library or academy");
 		notableTraits.put(19, "Site of important tomb or graveyard");
 		notableTraits.put(20, "Built atop ancient ruins");
-		
+
 		// FIll Known For Its... Table
 		knownFor = new RangedTreeMap<>();
 		knownFor.put(1, "Delicious cuisine");
@@ -87,7 +87,7 @@ public class SettlementCreator {
 		knownFor.put(18, "Powerful guilds");
 		knownFor.put(19, "Strong drink");
 		knownFor.put(20, "Patriotism");
-		
+
 		// Fill Current Calamity Table
 		currentCalamity = new RangedTreeMap<>();
 		currentCalamity.put(1, "Suspected vampire infestation");
@@ -109,20 +109,20 @@ public class SettlementCreator {
 		currentCalamity.put(19, "Dungeon discovered (adventurers flock to town)");
 		currentCalamity.put(20, "Religious sects struggle for power");
 	}
-	
+
 	public Settlement create(String name, int numberOfBuildings) {
 		Settlement settlement = new Settlement(name);
-		
-		settlement.setRaceRelations(raceRelations.get(Dice.roll(20)));
-		settlement.setRulersStatus(rulersStatus.get(Dice.roll(20)));
-		settlement.setNotableTraits(notableTraits.get(Dice.roll(20)));
-		settlement.setKnownFor(knownFor.get(Dice.roll(20)));
-		settlement.setCurrentCalamity(currentCalamity.get(Dice.roll(20)));
-		
+
+		settlement.setRaceRelations(raceRelations.get(Dice.D20.roll()));
+		settlement.setRulersStatus(rulersStatus.get(Dice.D20.roll()));
+		settlement.setNotableTraits(notableTraits.get(Dice.D20.roll()));
+		settlement.setKnownFor(knownFor.get(Dice.D20.roll()));
+		settlement.setCurrentCalamity(currentCalamity.get(Dice.D20.roll()));
+
 		for (int i = 0; i < numberOfBuildings; i++) {
 			settlement.addBuilding(buildingCreator.create());
 		}
-		
+
 		return settlement;
 	}
 

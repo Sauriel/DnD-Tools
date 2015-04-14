@@ -2,19 +2,19 @@ package de.sauriel.dndtools.buildings;
 
 import java.util.TreeMap;
 
-import de.sauriel.dndtools.tools.Dice;
 import de.sauriel.dndtools.tools.RangedTreeMap;
+import de.sauriel.dndtools.tools.dice.Dice;
 
 public class BuildingCreator {
-	
+
 	private final Class<? extends Building> RESIDENCE = ResidenceBuilding.class;
 	private final Class<? extends Building> RELIGIOUS = ReligiousBuilding.class;
 	private final Class<? extends Building> TAVERN = TavernBuilding.class;
 	private final Class<? extends Building> WAREHOUSE = WarehouseBuilding.class;
 	private final Class<? extends Building> SHOP = ShopBuilding.class;
-	
+
 	private RangedTreeMap<Class<? extends Building>> buildingTypes;
-	
+
 	private RangedTreeMap<String> residenceSubtypes;
 	private RangedTreeMap<String> religiousSubtypes;
 	private RangedTreeMap<String> tavernSubtypes;
@@ -23,7 +23,7 @@ public class BuildingCreator {
 
 	private TreeMap<Integer, String> tavernNameFirstPart;
 	private TreeMap<Integer, String> tavernNameSecondPart;
-	
+
 	public BuildingCreator() {
 		// add building types
 		buildingTypes = new RangedTreeMap<>();
@@ -32,7 +32,7 @@ public class BuildingCreator {
 		buildingTypes.put(13, 15, TAVERN);
 		buildingTypes.put(16, 17, WAREHOUSE);
 		buildingTypes.put(18, 20, SHOP);
-		
+
 		// add residence subtypes
 		residenceSubtypes = new RangedTreeMap<>();
 		residenceSubtypes.put(1, 2, "Abandoned squat");
@@ -43,7 +43,7 @@ public class BuildingCreator {
 		residenceSubtypes.put(18, "Hidden slavers' den");
 		residenceSubtypes.put(19, "Front for a secret cult");
 		residenceSubtypes.put(20, "Lavish, guarded mansion");
-		
+
 		// add religous subtypes
 		religiousSubtypes = new RangedTreeMap<>();
 		religiousSubtypes.put(1, 10, "Temple to a good or neutral deity");
@@ -52,7 +52,7 @@ public class BuildingCreator {
 		religiousSubtypes.put(14, 15, "Abandoned shrine");
 		religiousSubtypes.put(16, 17, "Library dedicated to religious study");
 		religiousSubtypes.put(18, 20, "Hidden shrine to a fiend or an evil deity");
-		
+
 		// add tavern subtypes
 		tavernSubtypes = new RangedTreeMap<>();
 		tavernSubtypes.put(1, 5, "Quiet, low-key bar");
@@ -64,7 +64,7 @@ public class BuildingCreator {
 		tavernSubtypes.put(16, 17, "Caters to a specific race or guild");
 		tavernSubtypes.put(18, "Members-only club");
 		tavernSubtypes.put(19, 20, "Brothel");
-		
+
 		// add warehouse subtypes
 		warehouseSubtypes = new RangedTreeMap<>();
 		warehouseSubtypes.put(1, 4, "Empty or abandoned");
@@ -75,7 +75,7 @@ public class BuildingCreator {
 		warehouseSubtypes.put(16, 17, "Weapons/armor");
 		warehouseSubtypes.put(18, 19, "Goods from a distant land");
 		warehouseSubtypes.put(20, "Secret smugler's den");
-		
+
 		// add shop subtypes
 		shopSubtypes = new TreeMap<>();
 		shopSubtypes.put(1, "Pawnshop");
@@ -98,7 +98,7 @@ public class BuildingCreator {
 		shopSubtypes.put(18, "Ropemaker");
 		shopSubtypes.put(19, "Mason");
 		shopSubtypes.put(20, "Scribe");
-		
+
 		// add tavern name first part
 		tavernNameFirstPart = new TreeMap<>();
 		tavernNameFirstPart.put(1, "The Silver");
@@ -121,7 +121,7 @@ public class BuildingCreator {
 		tavernNameFirstPart.put(18, "The Barking");
 		tavernNameFirstPart.put(19, "The Black");
 		tavernNameFirstPart.put(20, "The Gleaming");
-		
+
 		// add tavern name second part
 		tavernNameSecondPart = new TreeMap<>();
 		tavernNameSecondPart.put(1, "Eel");
@@ -147,8 +147,8 @@ public class BuildingCreator {
 	}
 
 	public Building create() {
-		Class<? extends Building> type = buildingTypes.get(Dice.roll(20));
-		
+		Class<? extends Building> type = buildingTypes.get(Dice.D20.roll());
+
 		if (type.equals(RESIDENCE)) {
 			return createResidence();
 		}
@@ -164,29 +164,29 @@ public class BuildingCreator {
 		if (type.equals(SHOP)) {
 			return createShop();
 		}
-		
+
 		return null;
 	}
-	
+
 	private ResidenceBuilding createResidence() {
-		return new ResidenceBuilding(residenceSubtypes.get(Dice.roll(20)));
+		return new ResidenceBuilding(residenceSubtypes.get(Dice.D20.roll()));
 	}
-	
+
 	private ReligiousBuilding createReligious() {
-		return new ReligiousBuilding(religiousSubtypes.get(Dice.roll(20)));
+		return new ReligiousBuilding(religiousSubtypes.get(Dice.D20.roll()));
 	}
-	
+
 	private TavernBuilding createTavern() {
-		String tavernName = String.join(" ", tavernNameFirstPart.get(Dice.roll(20)), tavernNameSecondPart.get(Dice.roll(20)));
-		return new TavernBuilding(tavernSubtypes.get(Dice.roll(20)), tavernName);
+		String tavernName = String.join(" ", tavernNameFirstPart.get(Dice.D20.roll()), tavernNameSecondPart.get(Dice.D20.roll()));
+		return new TavernBuilding(tavernSubtypes.get(Dice.D20.roll()), tavernName);
 	}
-	
+
 	private WarehouseBuilding createWarehouse() {
-		return new WarehouseBuilding(warehouseSubtypes.get(Dice.roll(20)));
+		return new WarehouseBuilding(warehouseSubtypes.get(Dice.D20.roll()));
 	}
-	
+
 	private ShopBuilding createShop() {
-		return new ShopBuilding(shopSubtypes.get(Dice.roll(20)));
+		return new ShopBuilding(shopSubtypes.get(Dice.D20.roll()));
 	}
 
 }
