@@ -1,8 +1,8 @@
-package de.sauriel.dndtools.encounter;
+package main.java.de.sauriel.dndtools.encounter;
 
 import java.util.ArrayList;
 
-import de.sauriel.dndtools.tools.RangedTreeMap;
+import main.java.de.sauriel.dndtools.tools.RangedTreeMap;
 
 public class EncounterXpCalculation {
 	

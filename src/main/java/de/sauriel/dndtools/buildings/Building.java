@@ -1,4 +1,4 @@
-package de.sauriel.dndtools.buildings;
+package main.java.de.sauriel.dndtools.buildings;
 
 public abstract class Building {
 	

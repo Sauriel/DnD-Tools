@@ -1,4 +1,4 @@
-package de.sauriel.dndtools.tools;
+package main.java.de.sauriel.dndtools.tools;
 
 import java.util.TreeMap;
 

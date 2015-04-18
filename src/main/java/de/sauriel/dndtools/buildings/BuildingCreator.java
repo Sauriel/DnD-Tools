@@ -1,9 +1,9 @@
-package de.sauriel.dndtools.buildings;
+package main.java.de.sauriel.dndtools.buildings;
 
 import java.util.TreeMap;
 
-import de.sauriel.dndtools.tools.RangedTreeMap;
-import de.sauriel.dndtools.tools.dice.Dice;
+import main.java.de.sauriel.dndtools.tools.RangedTreeMap;
+import main.java.de.sauriel.dndtools.tools.dice.Dice;
 
 public class BuildingCreator {
 

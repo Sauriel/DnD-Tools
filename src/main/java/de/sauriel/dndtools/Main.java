@@ -1,4 +1,4 @@
-package de.sauriel.dndtools;
+package main.java.de.sauriel.dndtools;
 
 public class Main {
 	

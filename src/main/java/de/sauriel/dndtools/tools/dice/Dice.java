@@ -1,4 +1,4 @@
-package de.sauriel.dndtools.tools.dice;
+package main.java.de.sauriel.dndtools.tools.dice;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -1,8 +1,8 @@
-package de.sauriel.dndtools.settlements;
+package main.java.de.sauriel.dndtools.settlements;
 
 import java.util.ArrayList;
 
-import de.sauriel.dndtools.buildings.Building;
+import main.java.de.sauriel.dndtools.buildings.Building;
 
 public class Settlement {
 	

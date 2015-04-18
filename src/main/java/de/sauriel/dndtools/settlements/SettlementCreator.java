@@ -1,8 +1,8 @@
-package de.sauriel.dndtools.settlements;
+package main.java.de.sauriel.dndtools.settlements;
 
-import de.sauriel.dndtools.buildings.BuildingCreator;
-import de.sauriel.dndtools.tools.RangedTreeMap;
-import de.sauriel.dndtools.tools.dice.Dice;
+import main.java.de.sauriel.dndtools.buildings.BuildingCreator;
+import main.java.de.sauriel.dndtools.tools.RangedTreeMap;
+import main.java.de.sauriel.dndtools.tools.dice.Dice;
 
 public class SettlementCreator {
 

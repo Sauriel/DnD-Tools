@@ -1,14 +1,16 @@
-package de.sauriel.dndtools;
+package main.java.de.sauriel.dndtools;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import de.sauriel.dndtools.buildings.Building;
-import de.sauriel.dndtools.buildings.BuildingCreator;
-import de.sauriel.dndtools.encounter.EncounterXpCalculation;
-import de.sauriel.dndtools.settlements.Settlement;
-import de.sauriel.dndtools.settlements.SettlementCreator;
+import main.java.de.sauriel.dndtools.buildings.Building;
+import main.java.de.sauriel.dndtools.buildings.BuildingCreator;
+import main.java.de.sauriel.dndtools.encounter.EncounterXpCalculation;
+import main.java.de.sauriel.dndtools.settlements.Settlement;
+import main.java.de.sauriel.dndtools.settlements.SettlementCreator;
+import main.java.de.sauriel.dndtools.spells.Spell;
+import main.java.de.sauriel.dndtools.tools.importAndExportTools.JsonImporter;
 
 public class Menu {
 
@@ -24,6 +26,7 @@ public class Menu {
 			System.out.println("# 1.\tCreate Settlement");
 			System.out.println("# 2.\tCreate Building");
 			System.out.println("# 3.\tCalculate Encounter");
+			System.out.println("# 4.\tShow Spells");
 			System.out.println("### Choose your action ###");
 			try {
 				selectAction();
@@ -34,7 +37,7 @@ public class Menu {
 			}
 		}
 	}
-	
+
 	private void selectAction() throws InputMismatchException {
 		String input = scanner.next();
 		switch (input) {
@@ -51,16 +54,19 @@ public class Menu {
 		case "3":
 			calculateEncounter();
 			break;
+		case "4":
+			showSpells();
+			break;
 		default:
 			throw new InputMismatchException();
 		}
 		blankLine();
 	}
-	
+
 	private void blankLine() {
 		System.out.println();
 	}
-	
+
 	private void createSettlement() {
 		System.out.print("Please enter a name for the settlement: ");
 		String settlementName = scanner.next();
@@ -74,12 +80,12 @@ public class Menu {
 			System.out.println("Invalid input.");
 		}
 	}
-	
+
 	private void createBuilding() {
 		Building building = buildingCreator.create();
 		System.out.println(building);
 	}
-	
+
 	private void calculateEncounter() {
 		System.out.print("How many players are in the party? ");
 		try {
@@ -87,7 +93,7 @@ public class Menu {
 			if (partySize < 1) {
 				throw new Exception();
 			}
-			
+
 			ArrayList<Integer> partyLevel = new ArrayList<>();
 			while (partyLevel.size() < partySize) {
 				System.out.print("What level has Player " + (partyLevel.size() + 1) + "? ");
@@ -98,10 +104,10 @@ public class Menu {
 					System.out.println("Invalid input.");
 				}
 			}
-			
+
 			System.out.print("How many monsters do you want? ");
 			int numberOfMonsters = scanner.nextInt();
-			
+
 			System.out.print("What difficulty do you want? (Easy, Medium, Hard, Deadly) ");
 			String difficultySelect = scanner.next();
 			int[] difficulty;
@@ -120,11 +126,24 @@ public class Menu {
 				difficulty = EncounterXpCalculation.MEDIUM_XP;
 				break;
 			}
-			
+
 			int calculatedXP = encounterCalculation.calculateXP(partyLevel, numberOfMonsters, difficulty);
 			System.out.println("You can use: " + calculatedXP + " XP");
 		} catch (Exception e) {
 			System.out.println("Invalid input.");
+		}
+	}
+
+	private void showSpells() {
+		JsonImporter importer = new JsonImporter();
+		ArrayList<Spell> spells = importer.importSpells();
+
+		for (Spell spell : spells) {
+			System.out.println(spell + "\n\n");
+		}
+
+		if (spells.isEmpty()) {
+			System.out.println("No spells found.");
 		}
 	}
 
