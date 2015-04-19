@@ -1,6 +1,7 @@
 *.class
 *.json
 !00_DummySpell.json
+!00_DummyClass.json
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

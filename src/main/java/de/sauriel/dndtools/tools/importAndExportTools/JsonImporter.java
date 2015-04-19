@@ -7,8 +7,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import main.java.de.sauriel.dndtools.spells.Spell;
+import main.java.de.sauriel.dndtools.spells.Spelllist;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -17,9 +19,23 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class JsonImporter {
 
 	private final String SPELLS_FOLDER_NAME = "spells/";
+	private final String SPELLLISTS_FOLDER_NAME = "spelllists/";
 
 	public ArrayList<Spell> importSpells() {
 		return getObjects(SPELLS_FOLDER_NAME, Spell.class);
+	}
+
+	public ArrayList<Spelllist> importSpelllists(ArrayList<Spell> spells) {
+		TreeMap<String, Spell> spellsMap = new TreeMap<>();
+		for (Spell spell : spells) {
+			spellsMap.put(spell.getName(), spell);
+		}
+		ArrayList<Spelllist> spelllists = new ArrayList<>();
+		ArrayList<ImportedSpelllist> importedSpelllist = getObjects(SPELLLISTS_FOLDER_NAME, ImportedSpelllist.class);
+		for (ImportedSpelllist list : importedSpelllist) {
+			spelllists.add(Spelllist.convert(list, spellsMap));
+		}
+		return spelllists;
 	}
 
 	private <T> ArrayList<T> getObjects(String folderName, Class<T> clazz) {
@@ -28,7 +44,7 @@ public class JsonImporter {
 
 		ClassLoader classLoader = getClass().getClassLoader();
 
-		URL resourceFolder = classLoader.getResource(SPELLS_FOLDER_NAME);
+		URL resourceFolder = classLoader.getResource(folderName);
 
 		try {
 			Files.walk(Paths.get(resourceFolder.toURI())).forEach(filePath -> {

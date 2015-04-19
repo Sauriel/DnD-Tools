@@ -1,6 +1,7 @@
 package main.java.de.sauriel.dndtools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ import main.java.de.sauriel.dndtools.encounter.EncounterXpCalculation;
 import main.java.de.sauriel.dndtools.settlements.Settlement;
 import main.java.de.sauriel.dndtools.settlements.SettlementCreator;
 import main.java.de.sauriel.dndtools.spells.Spell;
+import main.java.de.sauriel.dndtools.spells.Spelllist;
 import main.java.de.sauriel.dndtools.tools.importAndExportTools.JsonImporter;
 
 public class Menu {
@@ -137,13 +139,24 @@ public class Menu {
 	private void showSpells() {
 		JsonImporter importer = new JsonImporter();
 		ArrayList<Spell> spells = importer.importSpells();
+		ArrayList<Spelllist> spelllists = importer.importSpelllists(spells);
 
-		for (Spell spell : spells) {
-			System.out.println(spell + "\n\n");
+		HashMap<String, Spelllist> spellsMap = new HashMap<>();
+		for (Spelllist list : spelllists) {
+			spellsMap.put(list.getClassName(), list);
 		}
 
-		if (spells.isEmpty()) {
-			System.out.println("No spells found.");
+		System.out.println("### Show spells for: ###");
+		for (Spelllist spelllist : spelllists) {
+			System.out.println("#\t" + spelllist.getClassName());
+		}
+		System.out.print("Class: ");
+		String input = scanner.next();
+		ArrayList<Spell> classSpells = spellsMap.get(input).getSpells();
+		blankLine();
+		for (Spell spell : classSpells) {
+			System.out.println(spell);
+			blankLine();
 		}
 	}
 
